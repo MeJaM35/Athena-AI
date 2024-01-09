@@ -5,7 +5,7 @@ function HelloWorld() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:8000/hello-world/')
+    axios.get('http://127.0.0.1:8000/')
       .then(response => {
         setMessage(response.data.message);
       })
