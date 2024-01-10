@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function HelloWorld() {
-  const [message, setMessage] = useState('');
+function Home() {
+  const [msg, setMessage] = useState('');
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/')
       .then(response => {
-        setMessage(response.data.message);
+        setMessage(response.data.msg);
       })
       .catch(error => {
         console.log(error);
@@ -17,9 +17,9 @@ function HelloWorld() {
   return (
     <div>
       <h1>Hello, World!</h1>
-      <p>{message}</p>
+      <p>{msg}</p>
     </div>
   );
 }
 
-export default HelloWorld;
+export default Home;
