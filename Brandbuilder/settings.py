@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     #dependencies
     'rest_framework',
     'corsheaders',
+    'compressor',
 
      #user apps
     'core.apps.CoreConfig',
@@ -132,6 +133,12 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+COMPRESS_ROOT = BASE_DIR / 'static'
+
+COMPRESS_ENABLED = True
+
+STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 
 
 

@@ -8,6 +8,6 @@ def index(request):
     context = {
         'msg': 'Brand Builder'
     }
-    return HttpResponse(context)
+    return render(request, 'core/index.html', context)
 
 # Create your views here.
