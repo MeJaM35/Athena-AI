@@ -9,5 +9,15 @@ def index(request):
         'msg': 'Brand Builder'
     }
     return render(request, 'core/index.html', context)
+def login(request):
+    context = {
+        'msg': 'Brand Builder'
+    }
+    return render(request, 'base/login.html', context)
+def register(request):
+    context = {
+        'msg': 'Brand Builder'
+    }
+    return render(request, 'base/register.html', context)
 
 # Create your views here.

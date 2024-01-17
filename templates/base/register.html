@@ -1,0 +1,191 @@
+{% load compress %}
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Brand Builder Register</title>
+  </head>
+  <body>
+    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+      <div
+        class="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0"
+      >
+       
+        <div class="flex flex-col justify-center p-8 md:p-14">
+          <span class="mb-3 text-4xl font-bold">BRAND BUILDER</span>
+          <span class="font-light text-gray-400 mb-2">
+            Register Yourself! Please enter your details
+          </span>
+          <div class="flex justify-between w-full py-2">
+            <div class="py-2">
+            <span class="mb-2 text-md">First Name</span><br>
+            <input
+              type="text" placeholder="Enter your First Name"
+              class="w-half p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+              name="firstname"
+              id="firstname"
+            />
+          </div>
+          <div class="py-2">
+            <span class="mb-2 text-md ml-5">Last Name</span><br>
+            <input
+              type="text" placeholder="Enter your Last Name"
+              class="w-half p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 ml-4"
+              name="lastname"
+              id="lastname"
+            />
+          </div>
+          </div>
+          <div class="py-2">
+            <span class="mb-2 text-md">Contact Number</span>
+            <input
+              type="tel" pattern="[0-9]{10}" placeholder="Enter your Contact Number"
+              class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+              name="tel"
+              id="tel"
+            />
+          <div class="py-2">
+            <span class="mb-2 text-md">Email ID</span>
+            <input
+              type="text" placeholder="Enter your Email ID"
+              class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+              name="email"
+              id="email"
+            />
+          </div>
+          <div class="py-2">
+            <span class="mb-2 text-md">Password</span>
+            <input placeholder="Enter Password"
+              type="password"
+              name="pass"
+              id="pass"
+              class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+            />
+          </div>
+
+          <div class="py-2">
+            <span class="mb-2 text-md">Confirm Password</span>
+            <input placeholder="Set Password"
+              type="password"
+              name="con_pass"
+              id="con_pass"
+              class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+            />
+          </div>
+          <div class="flex justify-between w-full">
+            <div class="mr-24">
+              <input type="checkbox" name="ch" id="ch" class="mr-2" />
+              <script>
+    document.getElementById('ch').addEventListener('change', function() {
+      var passwordInput = document.getElementById('pass');
+      passwordInput.type = this.checked ? 'text' : 'password';
+    });
+    document.getElementById('ch').addEventListener('change', function() {
+      var passwordInput = document.getElementById('con_pass');
+      passwordInput.type = this.checked ? 'text' : 'password';
+    });
+  </script>
+              <span class="text-md">Show Password</span>
+            </div>
+          </div>
+         <button onclick="validateForm()" 
+            class="w-full bg-black text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300 mt-5"
+          >
+            Sign up
+          </button>
+           <div class="flex justify-between w-full">
+                        <button
+            class="w-full border border-gray-300 text-md p-2 rounded-lg mb-2"
+          >
+            <img src="google.svg" alt="img" class="w-6 h-6 inline mr-2" />
+            Google
+          </button>
+            <button
+            class="w-full border border-gray-300 text-md p-2 rounded-lg mb-2 ml-4"
+          >
+            <img src="linkedin.svg" alt="img" class="w-6 h-6 inline mr-2" />
+          Linkedin
+          </button>
+          </div>
+          <div class="text-center text-gray-400">
+            Already have an account? 
+            <a href="login.html"><span class="font-bold text-black">Sign in</span></a>
+          </div>
+        </div>
+         <script>
+     function validateForm() {
+            document.getElementById('firstname').innerHTML = '';
+            document.getElementById('lastname').innerHTML = '';
+            document.getElementById('tel').innerHTML = '';
+            document.getElementById('email').innerHTML = '';
+            document.getElementById('pass').innerHTML = '';
+            document.getElementById('con_pass').innerHTML = '';
+
+            var firstname = document.getElementById('firstname').value;
+            var lastname = document.getElementById('lastname').value;
+            var tel = document.getElementById('tel').value;
+            var email = document.getElementById('email').value;
+            var pass = document.getElementById('pass').value;
+            var con_pass = document.getElementById('con_pass').value;
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var len=10;
+            if (firstname.trim() === '') {
+              alert('First Name is required');
+                return false;
+            }
+
+            else if (lastname.trim() === '') {
+              alert('Last Name is required');
+                return false;
+            }
+
+            else if (!/^\d+$/.test(tel)) {
+                alert('Please enter a valid contact number with only numeric digits.');
+            }
+
+            else if (!/^\d+$/.test(tel)) {
+                alert('Please enter a valid contact number with only numeric digits.');
+            }
+
+            else if (tel.length!=len) {
+                alert("Please Enter 10 Digits Contact Number");
+            }
+
+            else if (email.trim() === '') {
+              alert('Email is required');
+                return false;
+            }
+
+            else if (!emailRegex.test(email)) {
+              alert('Please enter an correct Email ID');
+                return false;
+            }
+
+            else if (pass.trim() === '') {
+              alert('Password is required');
+                return false;
+            }
+
+            else if (con_pass.trim() === '') {
+              alert('Confirm Password is required');
+                return false;
+            }
+
+            else if (pass!=con_pass) {
+              alert('Password & Confirm Password is NOT MATCHED');
+                return false;
+            }
+
+            else{
+              alert('Successfully Signed up');
+              window.location.href = 'login.html'; 
+              return false;  
+            }            
+          }
+    </script>
+    </div>
+  </body>
+</html>
