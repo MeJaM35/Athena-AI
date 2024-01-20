@@ -100,19 +100,19 @@
                         <button
             class="w-full border border-gray-300 text-md p-2 rounded-lg mb-2"
           >
-            <img src="google.svg" alt="img" class="w-6 h-6 inline mr-2" />
+            <img src="{% static 'logo/google.svg' %}"  alt="img" class="w-6 h-6 inline mr-2" />
             Google
           </button>
             <button
             class="w-full border border-gray-300 text-md p-2 rounded-lg mb-2 ml-4"
           >
-            <img src="linkedin.svg" alt="img" class="w-6 h-6 inline mr-2" />
+            <img src="{% static 'logo/linkedin.svg' %}" alt="img" class="w-6 h-6 inline mr-2" />
           Linkedin
           </button>
           </div>
           <div class="text-center text-gray-400">
             Already have an account? 
-            <a href="login.html"><span class="font-bold text-black">Sign in</span></a>
+            <a href="{% url 'login' %}"><span class="font-bold text-black">Sign in</span></a>
           </div>
         </div>
          <script>
