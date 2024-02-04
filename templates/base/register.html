@@ -19,6 +19,12 @@
           <span class="font-light text-gray-400 mb-2">
             Register Yourself! Please enter your details
           </span>
+
+
+          <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+
+
           <div class="flex justify-between w-full py-2">
             <div class="py-2">
             <span class="mb-2 text-md">First Name</span><br>
@@ -61,7 +67,7 @@
             <input placeholder="Enter Password"
               type="password"
               name="pass"
-              id="pass"
+              id="passward"
               class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
             />
           </div>
@@ -80,7 +86,7 @@
               <input type="checkbox" name="ch" id="ch" class="mr-2" />
               <script>
     document.getElementById('ch').addEventListener('change', function() {
-      var passwordInput = document.getElementById('pass');
+      var passwordInput = document.getElementById('passward');
       passwordInput.type = this.checked ? 'text' : 'password';
     });
     document.getElementById('ch').addEventListener('change', function() {
@@ -96,10 +102,11 @@
           >
             Sign up
           </button>
+        </form>
            <div class="flex justify-between w-full">
                         <button
             class="w-full border border-gray-300 text-md p-2 rounded-lg mb-2"
-          >
+          ><a href="#">
             <img src="{% static 'logo/google.svg' %}"  alt="img" class="w-6 h-6 inline mr-2" />
             Google
           </button>
@@ -121,14 +128,14 @@
             document.getElementById('lastname').innerHTML = '';
             document.getElementById('tel').innerHTML = '';
             document.getElementById('email').innerHTML = '';
-            document.getElementById('pass').innerHTML = '';
+            document.getElementById('passward').innerHTML = '';
             document.getElementById('con_pass').innerHTML = '';
 
             var firstname = document.getElementById('firstname').value;
             var lastname = document.getElementById('lastname').value;
             var tel = document.getElementById('tel').value;
             var email = document.getElementById('email').value;
-            var pass = document.getElementById('pass').value;
+            var passward = document.getElementById('passward').value;
             var con_pass = document.getElementById('con_pass').value;
             var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             var len=10;
@@ -164,7 +171,7 @@
                 return false;
             }
 
-            else if (pass.trim() === '') {
+            else if (passward.trim() === '') {
               alert('Password is required');
                 return false;
             }
@@ -174,7 +181,7 @@
                 return false;
             }
 
-            else if (pass!=con_pass) {
+            else if (passward!=con_pass) {
               alert('Password & Confirm Password is NOT MATCHED');
                 return false;
             }

@@ -1,5 +1,6 @@
 {% load compress %}
 {% load static %}
+{% load socialaccount %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +21,10 @@
           <span class="font-light text-gray-400 mb-2">
             Welcome back! Please login to continue
           </span>
+
+          <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+
           <div class="py-4">
             <span class="mb-2 text-md">Email ID</span>
             <input
@@ -47,6 +52,7 @@
       passwordInput.type = this.checked ? 'text' : 'password';
     });
   </script>
+</form>
               <span class="text-md">Show Password</span>
             </div>
             <span class="font-bold text-md"><a href="#">Forgot password</a></span>
@@ -55,14 +61,14 @@
             class="w-full bg-black text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300"
           >
             Sign in
-          </button>
+        </button  >
           <div class="flex justify-between w-full py-2">
-                        <button
+                        <button 
             class="w-full border border-gray-300 text-md p-2 rounded-lg mb-2"
-          >
+          ><a href='#'>
             <img src="{% static 'logo/google.svg' %}"  alt="google logo" class="w-6 h-6 inline mr-2" />
             Google
-          </button>
+          </button> </a>
             <button
             class="w-full border border-gray-300 text-md p-2 rounded-lg mb-2 ml-4"
           >
