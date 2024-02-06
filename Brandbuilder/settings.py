@@ -27,6 +27,32 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
+SITE_ID = 1
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+
+    'allauth.account.auth_backends.AuthenticationBackend'
+    ]
+
+
+SOCIALACCOUNT_LOGIN_ON_GET=True
+
+
+
 
 # Application definition
 
@@ -104,6 +130,11 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'core.User'
+ACCOUNT_USER_MODEL = 'core.User'
+
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -168,26 +199,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Google Oauth
 
-SITE_ID = 1
-SOCIALACCOUNT_LOGIN_ON_GET=True
-AUTHENTICATION_BACKENDS = [
-
-    'allauth.account.auth_backends.AuthenticationBackend'
-    ]
 
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
-}
-LOGIN_REDIRECT_URL = '/'
+
+
+LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = '/'
 # settings.py
 

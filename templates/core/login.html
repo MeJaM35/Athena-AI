@@ -22,7 +22,7 @@
             Welcome back! Please login to continue
           </span>
 
-          <form method="post" action="{% url 'login' %}">
+          <form method="POST" action="#">
             {% csrf_token %}
 
           <div class="py-4">
@@ -52,16 +52,18 @@
       passwordInput.type = this.checked ? 'text' : 'password';
     });
   </script>
-</form>
               <span class="text-md">Show Password</span>
             </div>
             <span class="font-bold text-md"><a href="#">Forgot password</a></span>
           </div>
-         <button onclick="validateForm()" 
+         <button type="submit" onClick='validateForm()'
             class="w-full bg-black text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300"
           >
             Sign in
         </button  >
+
+        </form>
+
           <div class="flex justify-between w-full py-2">
                         <button 
             class="w-full border border-gray-300 text-md p-2 rounded-lg mb-2"
@@ -78,7 +80,7 @@
           </div>
           <div class="text-center text-gray-400">
             Don't have an account? 
-            <a href="{% url 'register' %}"span class="font-bold text-black">Sign up for free</span></a>
+            <a href="#"span class="font-bold text-black">Sign up for free</span></a>
           </div>
         </div>
          <script>
@@ -88,15 +90,9 @@
 
             var email = document.getElementById('email').value;
             var pass = document.getElementById('pass').value;
-            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
             if (email.trim() === '') {
               alert('Email is required');
-                return false;
-            }
-        
-            else if (!emailRegex.test(email)) {
-              alert('Please enter an correct Email ID');
                 return false;
             }
 
@@ -104,12 +100,15 @@
               alert('Password is required');
                 return false;
             }
-
             else{
-              alert('Successfully Login ');
-              window.location.href = 'abc.html'; 
-              return false;
-            }            
+            }
+            {% if messages %}
+            {% for message in messages%}
+            alert('{{message}}');
+            {% endfor %}
+            {% endif %}
+
+          
           }
     </script>
     </div>
