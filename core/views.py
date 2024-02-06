@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect 
 from rest_framework.response import Response
 from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import User
 
@@ -36,6 +37,12 @@ def loginUser(request):
 
     context = {'page': page}
     return render(request, 'core/login.html', context)
+
+
+@login_required(login_url='login')
+def logoutUser(request):
+    logout(request)
+    return redirect('landing')
 
 
 
