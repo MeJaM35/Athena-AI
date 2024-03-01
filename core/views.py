@@ -42,7 +42,7 @@ def loginUser(request):
 @login_required(login_url='login')
 def logoutUser(request):
     logout(request)
-    return redirect('landing')
+    return redirect('index')
 
 
 

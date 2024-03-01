@@ -13,3 +13,5 @@ rcssmin==1.1.1
 rjsmin==1.2.1
 sqlparse==0.2.4
 tzdata==2023.3
+python-social-auth==0.2.12
+django-allauth
