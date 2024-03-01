@@ -14,6 +14,13 @@ def index(request):
     }
     return render(request, 'core/index.html', context)
 
+    
+def cards(request):
+    context = {
+        'msg': 'Brand Builder'
+    }
+    return render(request, 'cards.html', context)
+
 def loginUser(request):
     page = 'login'
     if request.user.is_authenticated:
