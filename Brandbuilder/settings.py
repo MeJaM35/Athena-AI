@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'compressor',
+    'django_open_ai',
 
      #user apps
     'core.apps.CoreConfig',
@@ -184,6 +185,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 COMPRESS_ROOT = BASE_DIR / 'static'
 
 COMPRESS_ENABLED = True
+
+
+OPENAI_API_TYPE = "standard"
+OPENAI_API_KEY = "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"
+OPENAI_TARGET_DATABASE = "default"
 
 
 
