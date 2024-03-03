@@ -1,10 +1,32 @@
 from django.shortcuts import render,redirect 
 from rest_framework.response import Response
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import User
+from openai import OpenAI
+client = OpenAI(
+    # Defaults to os.environ.get("OPENAI_API_KEY")
+    api_key='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'
+)
+
+
+
+
+def get_completion(prompt):
+    query = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+       messages=[ 
+           {"role": "system", "content": "You are a helpful assistant."},
+           {"role": "user", "content": prompt}],
+        max_tokens=1024,
+        n=1,
+        stop=None,
+        temperature=0.5,
+    )
+    response = query.choices[0]
+    return response
 
 
 
@@ -14,11 +36,20 @@ def index(request):
     }
     return render(request, 'core/index.html', context)
 
+
+def prompt(request):
+    context = {}
+    if request.method == "POST":
+        prompt = request.POST.get('prompt')
+        response = get_completion(prompt)
+        context['response'] = response
+
     
+    return render(request, 'core/prompt.html', context)
+
 def cards(request):
-    context = {
-        'msg': 'Brand Builder'
-    }
+    context = {}
+
     return render(request, 'cards.html', context)
 
 def loginUser(request):

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load static%}
+
+{% block content  %}
+
+
+<form method='POST'>
+{% csrf_token %}
+<input type='text' placeholder='Search' name='prompt'> 
+<button  id='submitbtn' type="submit">Go</button>
+
+
+</form>
+
+
+<div id="opmodal" class="modal" style="display: none;">
+Output
+{{response.content}}
+</div>
+
+<script>
+const userEditButton = document.getElementById('submitbtn');
+
+submitbtn.addEventListener('click', () => {
+    opmodal.style.display = 'block';
+
+});
+</script>
+
+
+{% endblock content %}
