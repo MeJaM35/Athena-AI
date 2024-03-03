@@ -21,11 +21,11 @@ def get_completion(prompt):
            {"role": "system", "content": "You are a helpful assistant."},
            {"role": "user", "content": prompt}],
         max_tokens=1024,
-        n=1,
+        n=2,
         stop=None,
         temperature=0.5,
     )
-    response = query.choices[0]
+    response = query.choices
     return response
 
 

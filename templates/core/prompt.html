@@ -14,19 +14,19 @@
 </form>
 
 
-<div id="opmodal" class="modal" style="display: none;">
+<div id="opmodal" class="modal" >
 Output
-{{response.content}}
+
+{% for res in response %}
+{{res.message.content}}
+<br>
+
+{% endfor %}
+
+
 </div>
 
-<script>
-const userEditButton = document.getElementById('submitbtn');
 
-submitbtn.addEventListener('click', () => {
-    opmodal.style.display = 'block';
-
-});
-</script>
 
 
 {% endblock content %}
