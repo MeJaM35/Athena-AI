@@ -47,6 +47,22 @@ def prompt(request):
     
     return render(request, 'core/prompt.html', context)
 
+
+def dashboard(request):
+    context = {}
+
+    return render(request, 'core/dashboard.html', context)
+
+def profile(request):
+    context = {}
+
+    return render(request, 'core/profile.html', context)
+
+def register(request):
+    context = {}
+
+    return render(request, 'core/register.html', context)
+
 def cards(request):
     context = {}
 

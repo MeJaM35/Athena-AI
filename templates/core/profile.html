@@ -1,0 +1,44 @@
+<html>
+<head>
+  <title>
+        Profile
+    </title>
+  <link rel="stylesheet" href="static/src/profile.css">
+  <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar">
+        <h2 class="mb-3 text-2xl font-bold">Dashboard</h2>
+            <nav class="main-nav">
+            <ul class="main-nav-ul">
+                <li><a href='{% url "dashboard" %}'><i class="fas fa-home" class="mb-3 text-4xl font-bold"></i>Home</a></li>
+                <li><a href='{% url "profile" %}'><i class="fas fa-user" class="mb-3 text-4xl font-bold"></i>Profile</a></li>
+                <!-- <li><a href="#"><i class="fas fa-solid fa-chart-line"class="mb-3 text-4xl font-bold"></i>Analysis</a></li>  -->
+                <li><a href='{% url "prompt" %}'><i class="fas fa-solid fa-chart-line"class="mb-3 text-4xl font-bold"></i>Prompt</a></li>     
+                <li><a href='{% url "login" %}'><i class="fas fa-sign-out-alt" class="mb-3 text-4xl font-bold"></i>Logout</a></li>
+            </ul>
+            </nav>
+    </div>
+    <div class="main_content">
+        <div class="header">
+            <h2 class="mb-3 text-4xl font-bold">BRAND BUILDER</h2>
+        </div> 
+        <div class="profile"> 
+            <b>First Name:</b> <br>
+            <b>Last Name:</b> <br>
+            <b>Contact Number:</b> <br>
+            <b>Email ID:</b> <br><br>
+            <center> 
+                <input type="button" value="Edit Profile" class="p-2 border border-gray-300 rounded-md hover:bg-black hover:text-white hover:border hover:border-black-300 hover:cursor-pointer">
+            </center>
+
+            
+        </div>
+</div>
+</body>
+</html>

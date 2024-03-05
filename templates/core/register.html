@@ -187,8 +187,11 @@
             }
 
             else{
+              alert("redirecting to prompt page")
+              window.location.href = "{% url 'prompt' %}" 
               alert('Successfully Signed up');
-              window.location.href = 'login.html'; 
+              
+              console.log("siged in ") 
               return false;  
             }            
           }
