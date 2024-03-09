@@ -50,6 +50,10 @@ def prompt(request):
 
 def dashboard(request):
     context = {}
+    if request.method == "POST":
+        prompt = request.POST.get('prompt')
+        response = get_completion(prompt)
+        context['response'] = response
 
     return render(request, 'core/dashboard.html', context)
 
