@@ -125,3 +125,11 @@ li
   margin-top: 38%;
   padding: 25px;
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}
