@@ -4,11 +4,11 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import User
+from .models import User, Brand
 from openai import OpenAI
 client = OpenAI(
     # Defaults to os.environ.get("OPENAI_API_KEY")
-    api_key='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'
+    api_key='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'
 )
 
 
@@ -18,7 +18,7 @@ def get_completion(prompt):
     query = client.chat.completions.create(
         model="gpt-3.5-turbo",
        messages=[ 
-           {"role": "system", "content": "You are a helpful assistant."},
+           {"role": "system", "content": "You are a Content Writer specializing in Brand Storytelling based on the interviews you have with a brand's CEO."},
            {"role": "user", "content": prompt}],
         max_tokens=1024,
         n=2,
@@ -40,8 +40,27 @@ def index(request):
 def prompt(request):
     context = {}
     if request.method == "POST":
-        prompt = request.POST.get('prompt')
+
+        q1 = request.POST.get('q1')
+        q2 = request.POST.get('q2')
+        q3 = request.POST.get('q3')
+
+        br = Brand.objects.get(user = request.user)
+
+        prompt =  f"""{br.name} is a brand situated in {br.address} with a strength of over {br.size} people.
+        You recently had an interview with {br.name}. here's the manuscript of the same:
+        Q1. What is your brand’s purpose?
+        Ans. {q1}
+        Q2. What is your Unique Selling Proposition (USP)?
+        Ans. {q2}
+        Q3. What emotions do you want your brand to evoke?
+        Ans. {q3}
+
+        Based on these responses build a brand story/advertisement. """
+
+
         response = get_completion(prompt)
+        print(response)
         context['response'] = response
 
     
