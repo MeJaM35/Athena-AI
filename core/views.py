@@ -23,7 +23,7 @@ def get_completion(prompt):
         max_tokens=1024,
         n=2,
         stop=None,
-        temperature=0.5,
+        temperature=0.8,
     )
     response = query.choices
     return response
