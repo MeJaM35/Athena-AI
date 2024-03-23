@@ -23,7 +23,7 @@ class Brand(models.Model):
 
 class Instagram(models.Model):
     brand = models.OneToOneField(Brand, on_delete=models.CASCADE)
-    url = models.URLField()
+    url = models.URLField(blank=True)
     tag = models.CharField(max_length=256, blank=True, null=True)
     totalposts = models.IntegerField()
     totalfollows = models.IntegerField()
