@@ -1,13 +1,12 @@
+{% extends 'base.html' %}
 
 {% load static %}
 {% load compress %}
 
 {% block content %}
+    <link href='{% static 'src/competitor.css'  %}' rel="stylesheet" type="text/css">
 
-<link href='{% static 'src/competitor.css'  %}' rel="stylesheet" type="text/css">
-
-<div class="wrapper">
-    <div class="sidebar">
+<div class="sidebar">
         <h2 class="mb-3 text-2xl font-bold">profile</h2>
             <nav class="main-nav">
             <ul class="main-nav-ul">
@@ -20,13 +19,17 @@
             </nav>
     </div>
 
-    
-
-
-
-
-
+<div class="max-w-md mx-auto">
+  {% for brand in brands %}
+    <div class="bg-white border border-gray-200 rounded-lg shadow p-6 dark:bg-gray-800 dark:border-gray-700 mb-4">
+      <a href="#">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ brand.name }}</h5>
+      </a>
+    </div>
+  {% endfor %}
 </div>
+
+
 
 
 

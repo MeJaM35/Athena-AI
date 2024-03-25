@@ -130,3 +130,28 @@
     border-block-color: black;
     border-radius: 10px;
   }
+.wrapper {
+    display: flex;
+}
+
+.sidebar {
+    width: 25%;
+    /* Other styles for sidebar */
+}
+
+.content {
+    width: 75%;
+    /* Other styles for content */
+}
+
+/* Media query for responsiveness */
+@media screen and (max-width: 768px) {
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar, .content {
+        width: 100%;
+    }
+}
+
