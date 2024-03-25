@@ -122,5 +122,13 @@ def logoutUser(request):
     return redirect('index')
 
 
+def competitorDisplay(request):
+    brands = Brand.objects.all()
+
+    context = {
+        'brands': brands, 
+    }
+    return render(request, 'core/competitor.html', context)
+
 
 # Create your views here.

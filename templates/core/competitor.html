@@ -1,0 +1,33 @@
+
+{% load static %}
+{% load compress %}
+
+{% block content %}
+
+<link href='{% static 'src/competitor.css'  %}' rel="stylesheet" type="text/css">
+
+<div class="wrapper">
+    <div class="sidebar">
+        <h2 class="mb-3 text-2xl font-bold">profile</h2>
+            <nav class="main-nav">
+            <ul class="main-nav-ul">
+                <li><a href='{% url "dashboard" %}'><i class="fas fa-home" class="mb-3 text-4xl font-bold"></i>Home</a></li>
+                <li><a href='{% url "profile" %}'><i class="fas fa-user" class="mb-3 text-4xl font-bold"></i>Profile</a></li>
+<li><a href="{% url 'competitor-display' %}"><i class="fas fa-solid fa-chart-line"class="mb-3 text-4xl font-bold"></i>Analysis</a></li> 
+                <li><a href='{% url "prompt" %}'><i class="fas fa-solid fa-chart-line"class="mb-3 text-4xl font-bold"></i>Prompt</a></li>     
+                <li><a href='{% url "login" %}'><i class="fas fa-sign-out-alt" class="mb-3 text-4xl font-bold"></i>Logout</a></li>
+            </ul>
+            </nav>
+    </div>
+
+    
+
+
+
+
+
+</div>
+
+
+
+{% endblock %}
