@@ -22,7 +22,7 @@
 <div class="max-w-md mx-auto">
   {% for brand in brands %}
     <div class="bg-white border border-gray-200 rounded-lg shadow p-6 dark:bg-gray-800 dark:border-gray-700 mb-4">
-      <a href="#">
+      <a href="{% url 'analysis' brand.id %}">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ brand.name }}</h5>
       </a>
     </div>

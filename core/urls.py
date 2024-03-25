@@ -13,6 +13,8 @@ urlpatterns = [
     path('cards', views.cards, name='cards'),
     path('profile', views.profile, name='profile'),
     path('competitors', views.competitorDisplay, name='competitor-display'),
+    path('analysis/<str:pk>', views.analysis, name='analysis'),
+
 
 
 

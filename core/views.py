@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import User, Brand
+from .models import User, Brand, Instagram
 from openai import OpenAI
 client = OpenAI(
     # Defaults to os.environ.get("OPENAI_API_KEY")
@@ -129,6 +129,17 @@ def competitorDisplay(request):
         'brands': brands, 
     }
     return render(request, 'core/competitor.html', context)
+
+def analysis(request, pk):
+    br = Brand.objects.get(id=pk)
+    ig = Instagram.objects.get(brand = br)
+
+    context = {
+        'ig': ig,
+
+    }
+
+    return render(request, 'core/analysis.html', context)
 
 
 # Create your views here.
