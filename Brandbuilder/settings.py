@@ -36,6 +36,11 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
+        'APP': {
+            'client_id': '<your-client-id>',
+            'secret': '<your-client-secret>',
+            'key': ''
+        },
         'SCOPE': [
             'profile',
             'email',
