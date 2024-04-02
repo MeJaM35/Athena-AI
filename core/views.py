@@ -134,9 +134,14 @@ def competitorDisplay(request):
     }
     return render(request, 'core/competitor.html', context)
 
+@login_required
 def analysis(request, pk):
     br = Brand.objects.get(id=pk)
     ig = Instagram.objects.get(brand = br)
+
+    my_br = Brand.objects.get(id=request.user.brand.id)
+    my_ig = Instagram.objects.get(brand = my_br)
+
 
 
     totallikes = ig.tenthlikes+ig.eleventhlikes+ig.twelthlikes
@@ -159,11 +164,37 @@ def analysis(request, pk):
 
     pie = pie.to_html
 
+    line = px.line(
+    y=[10, 11, 12, 10, 11, 12], # Repeating post numbers for each brand
+    x=[ig.tenthlikes, ig.eleventhlikes, ig.twelthlikes, my_ig.tenthlikes, my_ig.eleventhlikes, my_ig.twelthlikes],
+    labels={'x': 'Post Number', 'y': 'Number of Likes'},
+    title='Likes Trend Across Posts for Different Brands',
+    color=[10, 11, 12, 10, 11, 12],  # Repeating brand names for each post
+    )
+    
+    line = line.to_html()
+
+    scatter = px.scatter(
+    x=[ig.totalfollows, my_ig.totalfollows],
+    y=[totallikes, my_ig.tenthlikes+my_ig.eleventhlikes+my_ig.twelthlikes],
+    text=[br.name, my_br.name],  # Display brand names as labels
+    labels={'x': 'Total Followers', 'y': 'Total Likes'},
+    title='Relationship Between Total Followers and Total Likes',
+    color=[br.name, my_br.name],  # Color points based on brand
+    hover_name=[br.name, my_br.name],  # Show brand names on hover
+    )
+
+    scatter = scatter.to_html()
+
+
+
 
     context = {
         'ig': ig,
         'bar': bar, 
         'pie': pie,
+        'line': line,
+        'scatter': scatter,
 
     }
 

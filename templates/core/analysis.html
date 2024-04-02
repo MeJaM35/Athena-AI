@@ -32,9 +32,14 @@
         <div class="header">
             <h2 class="mb-3 text-4xl font-bold">ANALYSIS</h2>
         </div> 
-{{bar|safe}}
+<div class="grid grid-cols-2 gap-4">
+                <div class="chart-item">{{ bar|safe }}</div>
+                <div class="chart-item">{{ pie|safe }}</div>
+                <div class="chart-item">{{ line|safe }}</div>
+                <div class="chart-item">{{ scatter|safe }}</div>
+            </div>
 
-{{pie|safe}}
+
         </div>  
          
           </div> 
