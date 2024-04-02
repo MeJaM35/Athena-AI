@@ -6,6 +6,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import User, Brand, Instagram
 from openai import OpenAI
+import plotly.express as px
+
+
+
 client = OpenAI(
     # Defaults to os.environ.get("OPENAI_API_KEY")
     api_key='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'
@@ -134,12 +138,23 @@ def analysis(request, pk):
     br = Brand.objects.get(id=pk)
     ig = Instagram.objects.get(brand = br)
 
+    bar = px.bar(
+        y = [ig.tenthlikes, ig.eleventhlikes, ig.twelthlikes],
+        x = [1, 2, 3],
+        labels = {'x':'posts', 'y':'time'},
+        title = "No of likes",
+    )
+    bar = bar.to_html()
+
     context = {
         'ig': ig,
+        'bar': bar
 
     }
 
     return render(request, 'core/analysis.html', context)
+
+
 
 
 # Create your views here.
