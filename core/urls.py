@@ -16,6 +16,9 @@ urlpatterns = [
     path('analysis/<str:pk>', views.analysis, name='analysis'),
 
 
+    #charts urls
+
+
 
 
     

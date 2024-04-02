@@ -9,8 +9,6 @@
 <body>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="path/to/chartjs/dist/chart.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="{% static "static/src/analysis.css" %}"  rel="stylesheet">
     <link href="{% static "static/src/output.css" %}" rel="stylesheet">
 
@@ -34,143 +32,11 @@
         <div class="header">
             <h2 class="mb-3 text-4xl font-bold">ANALYSIS</h2>
         </div> 
-        <div class="pie">
-           <canvas id="myPieChart"></canvas>
-        </div> 
-        <div class="scatter"> 
-                <canvas id="scatter"></canvas>
-        </div> 
-        <div class="radar">
-            <canvas id="radar"></canvas>
-        </div>
-         <div class="bar">
-            <canvas id="myChart"></canvas>
+{{bar|safe}}
+
+{{pie|safe}}
         </div>  
-        <script>
-            const barchart = document.getElementById('myChart');
-            new Chart(barchart, {
-                type: 'bar',
-                data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                        label: '# of Votes',
-                        data: [12, 19, 3, 5, 2, 3],
-                        borderWidth: 1 }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-  const Piedata = {
-  labels: [
-    'Red',
-    'Blue',
-    'Yellow'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [300, 50, 100],
-    backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)'
-    ],
-    hoverOffset: 4
-  }]
-};
-
-const Radardata = {
-  labels: [
-    'Eating',
-    'Drinking',
-    'Sleeping',
-    'Designing',
-    'Coding',
-    'Cycling',
-    'Running'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [65, 59, 90, 81, 56, 55, 40],
-    fill: true,
-    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-    borderColor: 'rgb(255, 99, 132)',
-    pointBackgroundColor: 'rgb(255, 99, 132)',
-    pointBorderColor: '#fff',
-    pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: 'rgb(255, 99, 132)'
-  }, {
-    label: 'My Second Dataset',
-    data: [28, 48, 40, 19, 96, 27, 100],
-    fill: true,
-    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-    borderColor: 'rgb(54, 162, 235)',
-    pointBackgroundColor: 'rgb(54, 162, 235)',
-    pointBorderColor: '#fff',
-    pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: 'rgb(54, 162, 235)'
-  }]
-};
-
-const Scatterdata = {
-  datasets: [{
-    label: 'Scatter Dataset',
-    data: [{
-      x: -10,
-      y: 0
-    }, {
-      x: 0,
-      y: 10
-    }, {
-      x: 10,
-      y: 5
-    }, {
-      x: 0.5,
-      y: 5.5
-    }],
-    backgroundColor: 'rgb(255, 99, 132)'
-  }],
-};
-    // Get the context of the canvas element we want to select
-    var ctx = document.getElementById('myPieChart').getContext('2d');
-    var radar = document.getElementById('radar').getContext('2d');
-    var scatter = document.getElementById('scatter').getContext('2d');
-    // Create the pie chart with the data and options
-    var myPieChart = new Chart(ctx, {
-      type: 'pie',
-      data: Piedata,
-    });
-
-    var radar = new Chart(radar, {
-       type: 'radar',
-  data: Radardata,
-  options: {
-    elements: {
-      line: {
-        borderWidth: 3
-      }
-    }
-  },
-    });
-
-    var scatter = new Chart(scatter, {
-      type: 'scatter',
-  data: Scatterdata,
-  options: {
-    scales: {
-      x: {
-        type: 'linear',
-        position: 'bottom'
-      }
-    }
-  }
-    });
-
-        </script>          
+         
           </div> 
     </div>
 </div>

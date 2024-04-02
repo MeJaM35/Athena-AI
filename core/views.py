@@ -138,17 +138,32 @@ def analysis(request, pk):
     br = Brand.objects.get(id=pk)
     ig = Instagram.objects.get(brand = br)
 
+
+    totallikes = ig.tenthlikes+ig.eleventhlikes+ig.twelthlikes
+
     bar = px.bar(
-        y = [ig.tenthlikes, ig.eleventhlikes, ig.twelthlikes],
-        x = [1, 2, 3],
-        labels = {'x':'posts', 'y':'time'},
-        title = "No of likes",
+        x=['Total Posts', 'Total Followers', 'Total likes'],
+        y=[ig.totalposts, ig.totalfollows, totallikes],
+        labels={'x': 'Brands', 'y': 'Counts'},
+        title='Comparison of Posts, Followers, and Likes',
+        color_discrete_sequence=['skyblue', 'orange', 'green']
     )
     bar = bar.to_html()
 
+    pie = px.pie(
+        values = [ig.tenthlikes, ig.eleventhlikes, ig.twelthlikes],
+        names = ['tenth post', 'eleventh post', 'twelfth post'],
+        title='likes',
+
+    )
+
+    pie = pie.to_html
+
+
     context = {
         'ig': ig,
-        'bar': bar
+        'bar': bar, 
+        'pie': pie,
 
     }
 
