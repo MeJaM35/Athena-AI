@@ -9,7 +9,7 @@
 
 <body>
 
-    <button onclick="location.href='{% url 'logout' %}'" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" style="position: fixed; top: 20px; right: 20px;">Logout</button>
+    <!-- <button onclick="location.href='{% url 'logout' %}'" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" style="position: fixed; top: 20px; right: 20px;">Logout</button> -->
 
     <div class="flex flex-wrap ">
 
@@ -25,7 +25,7 @@
         </div>
 
     </div>
-<form method="POST" class="max-w-sm mx-auto" >
+<form method="POST" class="max-w-sm mx-auto ml-30" style="margin: 30 30px 0 300px;" >
 {% csrf_token %}
 
 
