@@ -1,30 +1,44 @@
-  
 
-# Brand Builder
+# Athena AI
 
-  
+Athena AI is a comprehensive branding and marketing solution that helps businesses with 100% of their written and voice branding, and 80% of their marketing efforts. It covers everything a company needs from a branding and marketing perspective, leaving only paid media management and similar aspects to be handled externally.
 
-This is everything a company would need from the branding and marketing side.
+## Features
+- Complete written and voice branding solutions.
+- Marketing tools for 80% of marketing needs.
+- Easy integration with existing systems for managing and building brands.
 
-This app would be a one-stop branding and marketing solution.
+## Setup
 
-It can cover 100% of the written and voice branding.
+### Prerequisites
+- Ensure that you have Python installed. Check the version using the command:
+  ```bash
+  python --version
+  ```
 
-And, 80% of the marketing. (Leaving the paid media and more)
+### Install Dependencies
+Install the required dependencies for the Django project:
+```bash
+pip install -r requirements.txt
+```
 
-  
-  
+### Database Migrations
+Make and apply migrations to set up the database schema:
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
 
-## Setup
+### Run the Development Server
+To start the development server, run:
+```bash
+python manage.py runserver
+```
 
-  
+## Contributing
 
-1. check python installed using:
-		python --version
-2. install dependencies for django:
-		pip install -r requirements.txt
-4. run migrations:
-		python manage.py makemigrations
-		python manage.py migrate
-4. runserver: 
-		python manage.py runserver
+If you'd like to contribute to the development of this project, feel free to fork the repository, submit a pull request, or open an issue. All contributions are welcome!
+
+## License
+
+This project is licensed under the MIT License.
