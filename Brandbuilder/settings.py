@@ -193,7 +193,8 @@ COMPRESS_ENABLED = True
 
 
 OPENAI_API_TYPE = "standard"
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = ""
+# i did this commit back when i was stupid, good luck trying to extort this api key, but it has expired:)
 OPENAI_TARGET_DATABASE = "default"
 
 
