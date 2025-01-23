@@ -99,25 +99,33 @@ def cards(request):
 
 def loginUser(request):
     page = 'login'
+    
+    # Redirect authenticated users to the index page
     if request.user.is_authenticated:
         return redirect('index')
 
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('pass')
-        print(f"{email} {password}")
 
-        
+        # Validate input fields
+        if not email or not password:
+            messages.error(request, "Email and password are required.")
+            return redirect('login')
 
+        # Authenticate user
         user = authenticate(request, username=email, password=password)
-        print(user)
 
         if user is not None:
             login(request, user)
-            return redirect('index')
+            
+            # Redirect to the next page if it exists, otherwise index
+            next_url = request.GET.get('next', 'index')
+            return redirect(next_url)
         else:
-            messages.warning(request, 'Username OR password does not exit')
+            messages.warning(request, 'Invalid email or password.')
 
+    # Context for rendering the login page
     context = {'page': page}
     return render(request, 'core/login.html', context)
 
@@ -125,7 +133,7 @@ def loginUser(request):
 @login_required(login_url='login')
 def logoutUser(request):
     logout(request)
-    return redirect('index')
+    return redirect('login')
 
 @login_required(login_url='login')
 def competitorDisplay(request):

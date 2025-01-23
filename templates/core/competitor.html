@@ -14,8 +14,11 @@
                 <li><a href='{% url "profile" %}'><i class="fas fa-user" class="mb-3 text-4xl font-bold"></i>Profile</a></li>
 <li><a href="{% url 'competitor-display' %}"><i class="fas fa-solid fa-chart-line"class="mb-3 text-4xl font-bold"></i>Analysis</a></li> 
                 <li><a href='{% url "prompt" %}'><i class="fas fa-solid fa-chart-line"class="mb-3 text-4xl font-bold"></i>Prompt</a></li>     
-                <li><a href='{% url "login" %}'><i class="fas fa-sign-out-alt" class="mb-3 text-4xl font-bold"></i>Logout</a></li>
-            </ul>
+                {% if request.user.is_authenticated %}   
+                <li><a href='{% url "logout" %}'><i class="fas fa-sign-out-alt" class="mb-3 text-4xl font-bold"></i>Logout</a></li>
+                {% else %}
+                <li><a href='{% url "login" %}'><i class="fas fa-sign-out-alt" class="mb-3 text-4xl font-bold"></i>Login</a></li>
+                {% endif %}            </ul>
             </nav>
     </div>
 
