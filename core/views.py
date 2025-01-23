@@ -33,14 +33,14 @@ def get_completion(prompt):
     return response
 
 
-
+@login_required(login_url='login')
 def index(request):
     context = {
         'msg': 'Brand Builder'
     }
     return render(request, 'core/index.html', context)
 
-
+@login_required(login_url='login')
 def prompt(request):
     context = {}
     if request.method == "POST":
@@ -70,7 +70,7 @@ def prompt(request):
     
     return render(request, 'core/prompt.html', context)
 
-
+@login_required(login_url='login')
 def dashboard(request):
     context = {}
     if request.method == "POST":
@@ -80,6 +80,8 @@ def dashboard(request):
 
     return render(request, 'core/dashboard.html', context)
 
+
+@login_required(login_url='login')
 def profile(request):
     context = {}
 
@@ -125,7 +127,7 @@ def logoutUser(request):
     logout(request)
     return redirect('index')
 
-
+@login_required(login_url='login')
 def competitorDisplay(request):
     brands = Brand.objects.all()
 
