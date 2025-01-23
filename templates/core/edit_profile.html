@@ -25,32 +25,21 @@
             padding: 20px;
             background-color: #f9f9f9;
         }
-        .stories-header {
-            margin-bottom: 20px;
-        }
-        .stories-cards {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .story-card {
-            width: 30%;
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
             background-color: white;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        .story-card .card-content {
             padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .story-card .card-footer {
-            background-color: #f5f5f5;
+        .form-title {
+            margin-bottom: 20px;
         }
-        .story-card .card-footer a {
-            color: #3273dc;
-        }
-        .story-card .card-footer a:hover {
-            text-decoration: underline;
+        .form-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
         }
     </style>
 </head>
@@ -106,27 +95,70 @@
 
     <!-- Main Content -->
     <div class="main_content">
-        <div class="stories-header">
-            <h1 class="title is-3">Your Brand Stories</h1>
-            <p class="subtitle is-5">Explore the stories generated based on your brand responses</p>
-        </div>
-
-        <div class="stories-cards">
-            {% for story in stories %}
-            <div class="story-card">
-                <div class="card">
-                    <div class="card-content">
-                        <p class="title is-5">{{ story.brand.name }}</p>
-                        <p class="subtitle is-6">{{ story.response|truncatewords:20 }}</p>
+        <div class="form-container">
+            <h1 class="title is-3 form-title">Edit Profile</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="field">
+                    <label class="label">First Name</label>
+                    <div class="control">
+                        <input
+                            class="input"
+                            type="text"
+                            name="first_name"
+                            value="{{ request.user.first_name }}"
+                            placeholder="Enter your first name"
+                            required
+                        >
                     </div>
-                    <footer class="card-footer">
-                        <a href="#" class="card-footer-item">
-                            Regenerate
-                        </a>
-                    </footer>
                 </div>
-            </div>
-            {% endfor %}
+
+                <div class="field">
+                    <label class="label">Last Name</label>
+                    <div class="control">
+                        <input
+                            class="input"
+                            type="text"
+                            name="last_name"
+                            value="{{ request.user.last_name }}"
+                            placeholder="Enter your last name"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                        <input
+                            class="input"
+                            type="email"
+                            name="email"
+                            value="{{ request.user.email }}"
+                            placeholder="Enter your email address"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Contact Number</label>
+                    <div class="control">
+                        <input
+                            class="input"
+                            type="text"
+                            name="contact_number"
+                            value="{{ request.user.profile.contact_number|default:'' }}"
+                            placeholder="Enter your contact number"
+                        >
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="button is-primary">Save Changes</button>
+                    <a href="{% url 'profile' %}" class="button is-light ml-3">Cancel</a>
+                </div>
+            </form>
         </div>
     </div>
 </div>

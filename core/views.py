@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import User, Brand, Instagram
+from .models import User, Brand, Instagram, AStory
 from openai import OpenAI
 import plotly.express as px
 
@@ -35,8 +35,11 @@ def get_completion(prompt):
 
 @login_required(login_url='login')
 def index(request):
+    stories = AStory.objects.filter(user=request.user)
+
+    
     context = {
-        'msg': 'Brand Builder'
+        'stories': stories
     }
     return render(request, 'core/index.html', context)
 
@@ -44,14 +47,15 @@ def index(request):
 def prompt(request):
     context = {}
     if request.method == "POST":
-
         q1 = request.POST.get('q1')
         q2 = request.POST.get('q2')
         q3 = request.POST.get('q3')
 
-        br = Brand.objects.get(user = request.user)
+        # Fetch the user's brand
+        br = Brand.objects.get(user=request.user)
 
-        prompt =  f"""{br.name} is a brand situated in {br.address} with a strength of over {br.size} people.
+        # Prepare the prompt
+        prompt = f"""{br.name} is a brand situated in {br.address} with a strength of over {br.size} people.
         You recently had an interview with {br.name}. here's the manuscript of the same:
         Q1. What is your brand’s purpose?
         Ans. {q1}
@@ -60,25 +64,28 @@ def prompt(request):
         Q3. What emotions do you want your brand to evoke?
         Ans. {q3}
 
-        Based on these responses build a brand story/advertisement. """
+        Based on these responses build a brand story/advertisement."""
 
-
+        # Get the response from the model
         response = get_completion(prompt)
         print(response)
+
+        # Save the story in the database
+        AStory.objects.create(
+            user=request.user,
+            brand=br,
+            q1=q1,
+            q2=q2,
+            q3=q3,
+            response=response
+        )
+
+        # Pass the response to the template
         context['response'] = response
 
-    
     return render(request, 'core/prompt.html', context)
 
-@login_required(login_url='login')
-def dashboard(request):
-    context = {}
-    if request.method == "POST":
-        prompt = request.POST.get('prompt')
-        response = get_completion(prompt)
-        context['response'] = response
 
-    return render(request, 'core/dashboard.html', context)
 
 @login_required(login_url='login')
 def edit_profile(request):

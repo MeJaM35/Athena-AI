@@ -20,6 +20,19 @@ class Brand(models.Model):
     address = models.TextField(blank=True, null=True)
     size = models.IntegerField(default=-1)  # -1 means not
 
+class AStory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
+    q1 = models.TextField()
+    q2 = models.TextField()
+    q3 = models.TextField()
+    response = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Story for {self.brand.name} by {self.user.username}"
+
+
 
 class Instagram(models.Model):
     brand = models.OneToOneField(Brand, on_delete=models.CASCADE)
