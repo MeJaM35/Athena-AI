@@ -12,6 +12,8 @@ urlpatterns = [
     path('dashboard', views.dashboard, name='dashboard'),
     path('cards', views.cards, name='cards'),
     path('profile', views.profile, name='profile'),
+    path('edit-profile', views.edit_profile, name='edit'),
+
     path('competitors', views.competitorDisplay, name='competitor-display'),
     path('analysis/<str:pk>', views.analysis, name='analysis'),
 

@@ -80,6 +80,41 @@ def dashboard(request):
 
     return render(request, 'core/dashboard.html', context)
 
+@login_required(login_url='login')
+def edit_profile(request):
+    if request.method == 'POST':
+        user = request.user
+        
+        # Get data from the form
+        username = request.POST.get('username', user.username)
+        first_name = request.POST.get('first_name', user.first_name)
+        last_name = request.POST.get('last_name', user.last_name)
+        email = request.POST.get('email', user.email)
+        phone = request.POST.get('phone', user.phone)
+        
+        # Validate and update fields
+        try:
+            if email and User.objects.exclude(pk=user.pk).filter(email=email).exists():
+                messages.error(request, "Email already in use.")
+            elif username and User.objects.exclude(pk=user.pk).filter(username=username).exists():
+                messages.error(request, "Username already in use.")
+            else:
+                user.username = username
+                user.first_name = first_name
+                user.last_name = last_name
+                user.email = email
+                user.phone = phone
+                user.save()
+                messages.success(request, "Profile updated successfully.")
+                return redirect('profile')  # Redirect to a profile view
+        except Exception as e:
+            messages.error(request, f"An error occurred: {e}")
+
+    # Render the profile editing form
+    context = {
+        'user': request.user
+    }
+    return render(request, 'core/edit_profile.html', context)
 
 @login_required(login_url='login')
 def profile(request):
