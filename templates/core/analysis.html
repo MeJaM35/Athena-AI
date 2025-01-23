@@ -1,52 +1,85 @@
 {% extends 'base.html' %}
 
 {% load static %}
-
 {% load compress %}
 
 {% block content %}
-
 <body>
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="{% static "static/src/analysis.css" %}"  rel="stylesheet">
-    <link href="{% static "static/src/output.css" %}" rel="stylesheet">
-
-
-
-<div class="wrapper">
-
-<div class="sidebar">
-        <h2 class="mb-3 text-2xl font-bold">Brand Builder</h2>
-            <nav class="main-nav">
-            <ul class="main-nav-ul">
-                <li><a href='{% url "dashboard" %}'><i class="fas fa-home" class="mb-3 text-4xl font-bold"></i>Home</a></li>
-                <li><a href='{% url "profile" %}'><i class="fas fa-user" class="mb-3 text-4xl font-bold"></i>Profile</a></li>
-<li><a href="{% url 'competitor-display' %}"><i class="fas fa-solid fa-chart-line"class="mb-3 text-4xl font-bold"></i>Analysis</a></li> 
-                <li><a href='{% url "prompt" %}'><i class="fas fa-solid fa-chart-line"class="mb-3 text-4xl font-bold"></i>Prompt</a></li>     
-                {% if request.user.is_authenticated %}   
-                <li><a href='{% url "logout" %}'><i class="fas fa-sign-out-alt" class="mb-3 text-4xl font-bold"></i>Logout</a></li>
-                {% else %}
-                <li><a href='{% url "login" %}'><i class="fas fa-sign-out-alt" class="mb-3 text-4xl font-bold"></i>Login</a></li>
-                {% endif %}            </ul>
+    <div class="columns is-gapless">
+        <!-- Sidebar -->
+        <aside class="column is-2 has-background-light p-4">
+            <h2 class="title is-4 has-text-black mb-5">Brand Builder</h2>
+            <nav class="menu">
+                <ul class="menu-list">
+                    <li><a href='{% url "dashboard" %}'><i class="fas fa-home mr-2"></i>Home</a></li>
+                    <li><a href='{% url "profile" %}'><i class="fas fa-user mr-2"></i>Profile</a></li>
+                    <li><a href="{% url 'competitor-display' %}"><i class="fas fa-chart-line mr-2"></i>Analysis</a></li>
+                    <li><a href='{% url "prompt" %}'><i class="fas fa-lightbulb mr-2"></i>Prompt</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href='{% url "logout" %}'><i class="fas fa-sign-out-alt mr-2"></i>Logout</a></li>
+                    {% else %}
+                    <li><a href='{% url "login" %}'><i class="fas fa-sign-in-alt mr-2"></i>Login</a></li>
+                    {% endif %}
+                </ul>
             </nav>
-    </div>
-    <div class="main_content">
-        <div class="header">
-            <h2 class="mb-3 text-4xl font-bold">ANALYSIS</h2>
-        </div> 
-<div class="grid grid-cols-2 gap-4">
-                <div class="chart-item">{{ bar|safe }}</div>
-                <div class="chart-item">{{ pie|safe }}</div>
-                <div class="chart-item">{{ line|safe }}</div>
-                <div class="chart-item">{{ scatter|safe }}</div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="column is-10">
+            <div class="section">
+                <h2 class="title is-3 has-text-black mb-5">Analysis</h2>
+
+                <!-- Brand Cards -->
+                <div class="columns is-multiline">
+                    <div class="column is-6">
+                        <div class="card">
+                            <div class="card-content">
+                                <p class="title is-4">Brand A</p>
+                                <p class="subtitle is-6">Detailed brand description or key metrics here.</p>
+                                <div class="content">
+                                    {{ bar|safe }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-6">
+                        <div class="card">
+                            <div class="card-content">
+                                <p class="title is-4">Brand B</p>
+                                <p class="subtitle is-6">Detailed brand description or key metrics here.</p>
+                                <div class="content">
+                                    {{ pie|safe }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-6">
+                        <div class="card">
+                            <div class="card-content">
+                                <p class="title is-4">Brand C</p>
+                                <p class="subtitle is-6">Detailed brand description or key metrics here.</p>
+                                <div class="content">
+                                    {{ line|safe }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-6">
+                        <div class="card">
+                            <div class="card-content">
+                                <p class="title is-4">Brand D</p>
+                                <p class="subtitle is-6">Detailed brand description or key metrics here.</p>
+                                <div class="content">
+                                    {{ scatter|safe }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
-        </div>  
-         
-          </div> 
+        </div>
     </div>
-</div>
 </body>
 {% endblock %}

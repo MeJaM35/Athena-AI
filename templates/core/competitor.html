@@ -3,37 +3,55 @@
 {% load static %}
 {% load compress %}
 
+
+
 {% block content %}
-    <link href='{% static 'src/competitor.css'  %}' rel="stylesheet" type="text/css">
 
-<div class="sidebar">
-        <h2 class="mb-3 text-2xl font-bold">profile</h2>
-            <nav class="main-nav">
-            <ul class="main-nav-ul">
-                <li><a href='{% url "dashboard" %}'><i class="fas fa-home" class="mb-3 text-4xl font-bold"></i>Home</a></li>
-                <li><a href='{% url "profile" %}'><i class="fas fa-user" class="mb-3 text-4xl font-bold"></i>Profile</a></li>
-<li><a href="{% url 'competitor-display' %}"><i class="fas fa-solid fa-chart-line"class="mb-3 text-4xl font-bold"></i>Analysis</a></li> 
-                <li><a href='{% url "prompt" %}'><i class="fas fa-solid fa-chart-line"class="mb-3 text-4xl font-bold"></i>Prompt</a></li>     
-                {% if request.user.is_authenticated %}   
-                <li><a href='{% url "logout" %}'><i class="fas fa-sign-out-alt" class="mb-3 text-4xl font-bold"></i>Logout</a></li>
-                {% else %}
-                <li><a href='{% url "login" %}'><i class="fas fa-sign-out-alt" class="mb-3 text-4xl font-bold"></i>Login</a></li>
-                {% endif %}            </ul>
+<link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+
+
+<div class="columns">
+    <!-- Sidebar -->
+    <div class="column is-3">
+        <div class="box">
+            <h2 class="title is-4">Profile</h2>
+            <nav class="menu">
+                <ul class="menu-list">
+                    <li><a href='{% url "dashboard" %}'><i class="fas fa-home mb-3 text-4xl font-bold"></i> Home</a></li>
+                    <li><a href='{% url "profile" %}'><i class="fas fa-user mb-3 text-4xl font-bold"></i> Profile</a></li>
+                    <li><a href="{% url 'competitor-display' %}"><i class="fas fa-chart-line mb-3 text-4xl font-bold"></i> Analysis</a></li>
+                    <li><a href='{% url "prompt" %}'><i class="fas fa-chart-line mb-3 text-4xl font-bold"></i> Prompt</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href='{% url "logout" %}'><i class="fas fa-sign-out-alt mb-3 text-4xl font-bold"></i> Logout</a></li>
+                    {% else %}
+                    <li><a href='{% url "login" %}'><i class="fas fa-sign-out-alt mb-3 text-4xl font-bold"></i> Login</a></li>
+                    {% endif %}
+                </ul>
             </nav>
+        </div>
     </div>
 
-<div class="max-w-md mx-auto">
-  {% for brand in brands %}
-    <div class="bg-white border border-gray-200 rounded-lg shadow p-6 dark:bg-gray-800 dark:border-gray-700 mb-4">
-      <a href="{% url 'analysis' brand.id %}">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ brand.name }}</h5>
-      </a>
+    <!-- Main Content -->
+    <div class="column is-9">
+        <div class="columns is-multiline">
+            {% for brand in brands %}
+            <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                <div class="card">
+                    <div class="card-content">
+                        <p class="title is-4">{{ brand.name }}</p>
+                        <p class="subtitle is-6">{{ brand.address|default:"No Address" }}</p>
+                        <div class="content">
+                            <p><strong>Size:</strong> {{ brand.size|default:"N/A" }}</p>
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <a href="{% url 'analysis' brand.id %}" class="card-footer-item">Analyze</a>
+                    </footer>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-  {% endfor %}
 </div>
-
-
-
-
 
 {% endblock %}

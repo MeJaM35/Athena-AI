@@ -19,6 +19,8 @@
         .sidebar {
             flex: 0 0 250px;
             max-width: 250px;
+            background-color: #f4f4f4;
+            padding-top: 30px;
         }
         .main_content {
             flex: 1;
@@ -58,13 +60,26 @@
             display: flex;
             justify-content: center;
         }
+        .menu-list li a {
+            font-size: 18px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        .menu-list li a:hover {
+            color: #007bff;
+        }
+        .menu-list li a .icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
     </style>
 </head>
 
 <div class="wrapper">
     <!-- Sidebar -->
-    <aside class="sidebar has-background-light py-5 px-4">
-        <h2 class="title is-4 has-text-grey-darker">Profile</h2>
+    <aside class="sidebar">
+        <h2 class="title is-4 has-text-grey-darker mb-5 pl-5">Profile</h2>
         <nav class="menu">
             <ul class="menu-list">
                 <li>
@@ -112,45 +127,32 @@
 
     <!-- Main Content -->
     <div class="main_content">
-        <div class="profile-header">
-            <h1 class="title is-3">Brand Builder</h1>
-            <p class="subtitle is-5">Welcome, {{ request.user.first_name }}!</p>
+        <div class="competitor-header">
+            <h1 class="title is-3">Competitor Analysis</h1>
+            <p class="subtitle is-5">Explore the brands and competitors in the market.</p>
         </div>
 
-        <div class="profile-details">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>First Name</td>
-                        <td>{{ request.user.first_name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Last Name</td>
-                        <td>{{ request.user.last_name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Contact Number</td>
-                        <td>{{ request.user.phone|default:"N/A" }}</td>
-                    </tr>
-                    <tr>
-                        <td>Email ID</td>
-                        <td>{{ request.user.email }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="edit-profile-btn">
-            <a href="{% url 'edit' %}" class="button is-primary is-medium">
-                Edit Profile
-            </a>
+        <div class="competitor-list">
+            <div class="columns is-multiline">
+                {% for brand in brands %}
+                <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                    <div class="card competitor-card">
+                        <div class="card-content">
+                            <p class="title is-4">{{ brand.name }}</p>
+                            <p class="subtitle is-6">{{ brand.address|default:"No Address" }}</p>
+                            <div class="content">
+                                <p><strong>Size:</strong> {{ brand.size|default:"N/A" }}</p>
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <a href="{% url 'analysis' brand.id %}" class="card-footer-item">Analyze</a>
+                        </footer>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
+
 {% endblock %}

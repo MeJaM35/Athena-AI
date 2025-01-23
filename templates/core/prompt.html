@@ -4,48 +4,112 @@
 {% load static %}
 
 {% block content %}
+<!-- Bulma CDN Link -->
+<link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
 
 <link rel="stylesheet" href="{% static 'src/output.css' %}">
 
-<body>
-
-    <!-- <button onclick="location.href='{% url 'logout' %}'" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" style="position: fixed; top: 20px; right: 20px;">Logout</button> -->
-
-    <div class="flex flex-wrap ">
-
-        <div id="opmodal" class="modal">
-            <div class="flex flex-row"> <!-- Wrap responses in a horizontal container -->
-                {% for res in response %}
-                <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-10 ml-10"
-                    style="padding: 5px; margin-top: 10px; margin-left: 10px;overflow-y:  scroll; height: 300px; resize: none; ">
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ res.message.content }}</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-
+<div class="columns">
+    <!-- Sidebar -->
+    <div class="column is-3">
+        <aside class="menu">
+            <p class="menu-label">Profile</p>
+            <ul class="menu-list">
+                <li>
+                    <a href="{% url 'dashboard' %}" class="is-flex">
+                        <span class="icon mr-2"><i class="fas fa-home"></i></span>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'profile' %}" class="is-flex">
+                        <span class="icon mr-2"><i class="fas fa-user"></i></span>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'competitor-display' %}" class="is-flex">
+                        <span class="icon mr-2"><i class="fas fa-chart-line"></i></span>
+                        <span>Analysis</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'prompt' %}" class="is-flex">
+                        <span class="icon mr-2"><i class="fas fa-lightbulb"></i></span>
+                        <span>Prompt</span>
+                    </a>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li>
+                    <a href="{% url 'logout' %}" class="is-flex">
+                        <span class="icon mr-2"><i class="fas fa-sign-out-alt"></i></span>
+                        <span>Logout</span>
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'login' %}" class="is-flex">
+                        <span class="icon mr-2"><i class="fas fa-sign-in-alt"></i></span>
+                        <span>Login</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </aside>
     </div>
-<form method="POST" class="max-w-sm mx-auto ml-30" style="margin: 30 30px 0 300px;" >
-{% csrf_token %}
 
+    <!-- Main Content -->
+    <div class="column is-9">
+        <div class="content">
+            <h1 class="title is-3">Brand Builder</h1>
+            <p class="subtitle is-5">Welcome, {{ request.user.first_name }}!</p>
 
-  <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What is your brand’s purpose? </label>
-  <textarea id="message" rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name='q1' placeholder="Leave a comment..." required></textarea>
+            <!-- Modal for responses -->
+            <div id="opmodal" class="modal">
+                <div class="modal-content">
+                    <div class="columns">
+                        {% for res in response %}
+                        <div class="column is-3">
+                            <div class="box">
+                                <p class="content">{{ res.message.content }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
 
-<label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What is your Unique Selling Proposition (USP)?</label>
-  <textarea id="message" rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name='q2' placeholder="Leave a comment..." required></textarea>
+            <!-- Form for Brand Inputs -->
+            <form method="POST" class="box">
+                {% csrf_token %}
 
-  <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What emotions do you want your brand to evoke?</label>
-  <textarea id="message" rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name='q3' placeholder="Leave a comment..." required></textarea>
+                <div class="field">
+                    <label for="q1" class="label">What is your brand’s purpose?</label>
+                    <div class="control">
+                        <textarea id="q1" rows="2" class="textarea" name='q1' placeholder="Leave a comment..." required></textarea>
+                    </div>
+                </div>
 
- <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-              Generate
-          </button>
+                <div class="field">
+                    <label for="q2" class="label">What is your Unique Selling Proposition (USP)?</label>
+                    <div class="control">
+                        <textarea id="q2" rows="2" class="textarea" name='q2' placeholder="Leave a comment..." required></textarea>
+                    </div>
+                </div>
 
-</form>
+                <div class="field">
+                    <label for="q3" class="label">What emotions do you want your brand to evoke?</label>
+                    <div class="control">
+                        <textarea id="q3" rows="2" class="textarea" name='q3' placeholder="Leave a comment..." required></textarea>
+                    </div>
+                </div>
 
-</body>
+                <button type="submit" class="button is-primary is-fullwidth">
+                    Generate
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 
-</html>
-
-{% endblock content %}
+{% endblock %}
