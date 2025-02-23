@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+
+<div class="columns">
+    <!-- Sidebar -->
+    <div class="column is-3">
+        <div class="box">
+            <h2 class="title is-4">Profile</h2>
+            <nav class="menu">
+                <ul class="menu-list">
+                    <li><a href='{% url "dashboard" %}'><i class="fas fa-home mb-3 text-4xl font-bold"></i> Home</a></li>
+                    <li><a href='{% url "profile" %}'><i class="fas fa-user mb-3 text-4xl font-bold"></i> Profile</a></li>
+                    <li><a href="{% url 'competitor-display' %}"><i class="fas fa-chart-line mb-3 text-4xl font-bold"></i> Analysis</a></li>
+                    <li><a href='{% url "prompt" %}'><i class="fas fa-chart-line mb-3 text-4xl font-bold"></i> Prompt</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href='{% url "logout" %}'><i class="fas fa-sign-out-alt mb-3 text-4xl font-bold"></i> Logout</a></li>
+                    {% else %}
+                    <li><a href='{% url "login" %}'><i class="fas fa-sign-out-alt mb-3 text-4xl font-bold"></i> Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="column is-9">
+        <div class="box">
+            <h2 class="title is-3">Create Your Brand</h2>
+
+            {% if error %}
+            <div class="notification is-danger">{{ error }}</div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="field">
+                    <label class="label">Brand Name</label>
+                    <div class="control">
+                        <input class="input" type="text" name="name" placeholder="Enter brand name" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Address</label>
+                    <div class="control">
+                        <textarea class="textarea" name="address" placeholder="Enter address"></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Size</label>
+                    <div class="control">
+                        <input class="input" type="number" name="size" placeholder="Enter brand size">
+                    </div>
+                </div>
+
+                <div class="control">
+                    <button type="submit" class="button is-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

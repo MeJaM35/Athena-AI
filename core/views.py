@@ -7,6 +7,7 @@ from django.contrib import messages
 from .models import User, Brand, Instagram, AStory
 from openai import OpenAI
 import plotly.express as px
+import random
 
 
 
@@ -35,6 +36,8 @@ def get_completion(prompt):
 
 @login_required(login_url='login')
 def index(request):
+    if not Brand.objects.filter(user=request.user).exists():
+        return redirect('brand_form')
     stories = AStory.objects.filter(user=request.user)
 
     
@@ -45,6 +48,8 @@ def index(request):
 
 @login_required(login_url='login')
 def prompt(request):
+    if not Brand.objects.filter(user=request.user).exists():
+        return redirect('brand_form')
     context = {}
     if request.method == "POST":
         q1 = request.POST.get('q1')
@@ -125,16 +130,22 @@ def edit_profile(request):
 
 @login_required(login_url='login')
 def profile(request):
+    if not Brand.objects.filter(user=request.user).exists():
+        return redirect('brand_form')
     context = {}
 
     return render(request, 'core/profile.html', context)
 
 def register(request):
+    if not Brand.objects.filter(user=request.user).exists():
+        return redirect('brand_form')
     context = {}
 
     return render(request, 'core/register.html', context)
 
 def cards(request):
+    if not Brand.objects.filter(user=request.user).exists():
+        return redirect('brand_form')
     context = {}
 
     return render(request, 'cards.html', context)
@@ -179,6 +190,8 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def competitorDisplay(request):
+    if not Brand.objects.filter(user=request.user).exists():
+        return redirect('brand_form')
     brands = Brand.objects.all()
 
     context = {
@@ -188,6 +201,8 @@ def competitorDisplay(request):
 
 @login_required
 def analysis(request, pk):
+    if not Brand.objects.filter(user=request.user).exists():
+        return redirect('brand_form')
     br = Brand.objects.get(id=pk)
     ig = Instagram.objects.get(brand = br)
 
@@ -252,7 +267,47 @@ def analysis(request, pk):
 
     return render(request, 'core/analysis.html', context)
 
+@login_required
+def brand_form_view(request):
+    # If the user already has a brand, redirect them to dashboard (or another page)
+    if Brand.objects.filter(user=request.user).exists():
+        return redirect('dashboard')
 
+    if request.method == "POST":
+        # Manually retrieve form data from POST request
+        name = request.POST.get("name")
+        address = request.POST.get("address")
+        size = request.POST.get("size")
+        try:
+            size = int(size) if size else -1
+        except ValueError:
+            size = -1  # Fallback in case of conversion error
+
+        # Create the Brand object associated with the current user
+        brand = Brand.objects.create(
+            user=request.user,
+            name=name,
+            address=address,
+            size=size
+        )
+
+        # Generate random Instagram data for this brand
+        Instagram.objects.create(
+            brand=brand,
+            url=f"https://instagram.com/{name.replace(' ', '').lower()}",
+            tag=f"#{name.replace(' ', '').lower()}",
+            totalposts=random.randint(10, 500),
+            totalfollows=random.randint(100, 10000),
+            tenthlikes=random.randint(10, 500),
+            eleventhlikes=random.randint(10, 500),
+            twelthlikes=random.randint(10, 500),
+            lastninereach=random.randint(100, 10000),
+        )
+
+        # Redirect to dashboard after successful submission
+        return redirect('dashboard')
+
+    return render(request, "core/forms.html")
 
 
 # Create your views here.

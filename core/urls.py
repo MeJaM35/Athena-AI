@@ -16,6 +16,8 @@ urlpatterns = [
 
     path('competitors', views.competitorDisplay, name='competitor-display'),
     path('analysis/<str:pk>', views.analysis, name='analysis'),
+    path("user/brand", views.brand_form_view, name="brand_form"),
+
 
 
     #charts urls
