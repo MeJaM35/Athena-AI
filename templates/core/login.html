@@ -2,105 +2,75 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>Brand Builder Login</title>
-  </head>
-  <body>
+</head>
+<body>
     <div class="section">
-      <div class="container">
-        <div class="box" style="max-width: 480px; margin: 0 auto;">
-          <h1 class="title is-4 has-text-centered">BRAND BUILDER</h1>
-          <p class="subtitle is-6 has-text-centered">
-            Welcome back! Please login to continue.
-          </p>
+        <div class="container">
+            <div class="box" style="max-width: 480px; margin: 0 auto;">
+                <h1 class="title is-4 has-text-centered">BRAND BUILDER</h1>
+                <p class="subtitle is-6 has-text-centered">
+                    Welcome back! Please login to continue.
+                </p>
 
-          <form method="POST">
-            {% csrf_token %}
-            <div class="field">
-              <label class="label">Email</label>
-              <div class="control">
-                <input
-                  class="input"
-                  type="email"
-                  name="email"
-                  placeholder="Enter your Email ID"
-                  required
-                />
-              </div>
+                <form method="POST" action="{% url 'account_login' %}">
+                    {% csrf_token %}
+                    
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                            <input class="input" type="email" name="login" placeholder="Enter your Email ID" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control">
+                            <input class="input" type="password" name="password" id="password" placeholder="Enter your Password" required>
+                        </div>
+                    </div>
+
+                    <div class="field is-grouped is-justify-content-space-between">
+                        <label class="checkbox">
+                            <input type="checkbox" id="show-password"> Show Password
+                        </label>
+                        <a href="{% url 'account_reset_password' %}" class="is-link">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="button is-dark is-fullwidth mt-4">
+                        Sign in
+                    </button>
+                </form>
+
+                <div class="buttons mt-5">
+                    <a href="{% provider_login_url 'google' method='oauth2' %}?next=/" class="button is-light is-fullwidth mb-3">
+                        <span class="icon">
+                            <i class="fab fa-google"></i>
+                        </span>
+                        <span>Sign in with Google</span>
+                    </a>
+                </div>
+
+                <p class="has-text-centered mt-5">
+                    Don't have an account?
+                    <a href="{% url 'account_signup' %}" class="has-text-weight-bold">Sign up for free</a>
+                </p>
             </div>
-
-            <div class="field">
-              <label class="label">Password</label>
-              <div class="control">
-                <input
-                  class="input"
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Enter your Password"
-                  required
-                />
-              </div>
-            </div>
-
-            <div class="field is-grouped is-justify-content-space-between">
-              <label class="checkbox">
-                <input type="checkbox" id="show-password" />
-                Show Password
-              </label>
-              <a href="#" class="is-link">Forgot password?</a>
-            </div>
-
-            <button
-              type="submit"
-              class="button is-dark is-fullwidth mt-4"
-            >
-              Sign in
-            </button>
-          </form>
-
-          <div class="buttons mt-5">
-            <a
-              href="{% provider_login_url 'google' %}?next=/"
-              class="button is-light is-fullwidth mb-3"
-            >
-              <span class="icon">
-                <i class="fab fa-google"></i>
-              </span>
-              <span>Sign in with Google</span>
-            </a>
-            <button class="button is-light is-fullwidth">
-              <span class="icon">
-                <i class="fab fa-linkedin"></i>
-              </span>
-              <span>Sign in with LinkedIn</span>
-            </button>
-          </div>
-
-          <p class="has-text-centered mt-5">
-            Don't have an account?
-            <a href="{% url 'register' %}" class="has-text-weight-bold">Sign up for free</a>
-          </p>
         </div>
-      </div>
     </div>
 
     <script>
-      document.getElementById('show-password').addEventListener('change', function () {
-        const passwordInput = document.getElementById('password');
-        passwordInput.type = this.checked ? 'text' : 'password';
-      });
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("show-password").addEventListener("change", function () {
+                document.getElementById("password").type = this.checked ? "text" : "password";
+            });
+        });
     </script>
-  </body>
+</body>
 </html>
