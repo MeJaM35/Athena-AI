@@ -1,4 +1,5 @@
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -21,6 +22,16 @@
                   Register Yourself! Please enter your details.
                 </p>
 
+                {% if messages %}
+                <div class="notification is-light">
+                  {% for message in messages %}
+                    <div class="{% if message.tags %}notification is-{{ message.tags }}{% endif %}">
+                      {{ message }}
+                    </div>
+                  {% endfor %}
+                </div>
+                {% endif %}
+
                 <form method="post" action="{% url 'register' %}">
                   {% csrf_token %}
                   <div class="field is-horizontal">
@@ -34,6 +45,7 @@
                             placeholder="Enter your First Name"
                             name="firstname"
                             id="firstname"
+                            required
                           />
                         </div>
                       </div>
@@ -46,6 +58,7 @@
                             placeholder="Enter your Last Name"
                             name="lastname"
                             id="lastname"
+                            required
                           />
                         </div>
                       </div>
@@ -62,6 +75,7 @@
                         placeholder="Enter your Contact Number"
                         name="tel"
                         id="tel"
+                        required
                       />
                     </div>
                   </div>
@@ -75,6 +89,7 @@
                         placeholder="Enter your Email ID"
                         name="email"
                         id="email"
+                        required
                       />
                     </div>
                   </div>
@@ -88,6 +103,7 @@
                         placeholder="Enter Password"
                         name="pass"
                         id="password"
+                        required
                       />
                     </div>
                   </div>
@@ -101,6 +117,7 @@
                         placeholder="Confirm Password"
                         name="con_pass"
                         id="confirm_password"
+                        required
                       />
                     </div>
                   </div>
@@ -116,8 +133,7 @@
                   <div class="field">
                     <div class="control">
                       <button
-                        type="button"
-                        onclick="validateForm()"
+                        type="submit"
                         class="button is-primary is-fullwidth"
                       >
                         Sign Up
@@ -163,27 +179,6 @@
         passwordInput.type = inputType;
         confirmPasswordInput.type = inputType;
       });
-
-      function validateForm() {
-        const firstname = document.getElementById('firstname').value.trim();
-        const lastname = document.getElementById('lastname').value.trim();
-        const tel = document.getElementById('tel').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
-        const confirmPassword = document.getElementById('confirm_password').value.trim();
-
-        if (!firstname) return alert('First Name is required');
-        if (!lastname) return alert('Last Name is required');
-        if (!/^[0-9]{10}$/.test(tel)) return alert('Enter a valid 10-digit Contact Number');
-        if (!email) return alert('Email is required');
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return alert('Enter a valid Email ID');
-        if (!password) return alert('Password is required');
-        if (!confirmPassword) return alert('Confirm Password is required');
-        if (password !== confirmPassword) return alert('Passwords do not match');
-
-        alert('Successfully Signed up');
-        window.location.href = "{% url 'prompt' %}";
-      }
     </script>
   </body>
 </html>

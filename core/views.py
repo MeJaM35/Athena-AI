@@ -137,11 +137,66 @@ def profile(request):
     return render(request, 'core/profile.html', context)
 
 def register(request):
-    if not Brand.objects.filter(user=request.user).exists():
-        return redirect('brand_form')
-    context = {}
+    if request.method == 'POST':
+        firstname = request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        tel = request.POST.get('tel')
+        email = request.POST.get('email')
+        password = request.POST.get('pass')
+        confirm_password = request.POST.get('con_pass')
+        
+        # Server-side validation
+        if not firstname or not lastname:
+            messages.error(request, 'First Name and Last Name are required')
+            return render(request, 'core/register.html')
+            
+        if not tel or len(tel) != 10 or not tel.isdigit():
+            messages.error(request, 'Enter a valid 10-digit Contact Number')
+            return render(request, 'core/register.html')
+            
+        if not email or '@' not in email or '.' not in email:
+            messages.error(request, 'Enter a valid Email ID')
+            return render(request, 'core/register.html')
+            
+        if not password:
+            messages.error(request, 'Password is required')
+            return render(request, 'core/register.html')
+            
+        if password != confirm_password:
+            messages.error(request, 'Passwords do not match')
+            return render(request, 'core/register.html')
+            
+        # Check if user already exists
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'Email is already registered')
+            return render(request, 'core/register.html')
+            
+        # Create user
+        user = User.objects.create_user(
+            username=email,  # Using email as username
+            email=email,
+            password=password,
+            first_name=firstname,
+            last_name=lastname
+        )
+        
+        # Create profile for additional fields if needed
+        # profile = Profile.objects.create(user=user, phone_number=tel)
+        
+        # Authenticate user before login
+        authenticated_user = authenticate(username=email, password=password)
+        
+        if authenticated_user:
+            # Log user in with the specified backend
+            login(request, authenticated_user)
+            messages.success(request, 'Registration successful!')
+            return redirect('prompt')  # Redirect to prompt page after signup
+        else:
+            messages.error(request, 'Authentication failed after registration. Please try logging in.')
+            return redirect('login')
+        
+    return render(request, 'core/register.html')
 
-    return render(request, 'core/register.html', context)
 
 def cards(request):
     if not Brand.objects.filter(user=request.user).exists():

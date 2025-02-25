@@ -37,8 +37,8 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': '<your-client-id>',
-            'secret': '<your-client-secret>',
+            'client_id': '1089169980633-6dl9c17ljt7tvvkqjsmt03estjet1p0l.apps.googleusercontent.com',
+            'secret': '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',
             'key': ''
         },
         'SCOPE': [
@@ -221,7 +221,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-LOGIN_REDIRECT_URL = 'prompt'
-LOGOUT_REDIRECT_URL = 'register'
+# settings.py
+LOGIN_REDIRECT_URL = '/'  # or your dashboard/homepage
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_VERIFICATION = "none"  # No email confirmation
+
 # settings.py
 
